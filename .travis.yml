@@ -35,12 +35,13 @@ before_script:
   - if [[ $DB == 'pgsql' ]]; then psql -c 'CREATE DATABASE cakephp_test;' -U postgres; fi
 
   - composer install --prefer-source --no-interaction
-  - bin/cake migrations migrate
-  - bin/cake migrations seed
 
   - if [[ $CHECKS != 1 ]]; then composer require phpunit/phpunit:"^8.3"; fi
 
   - cp config/app.php config/app_local.php
+
+  - bin/cake migrations migrate
+  - bin/cake migrations seed
 
 script:
   - if [[ $DEFAULT == 1 ]]; then composer test-setup && composer test; fi
